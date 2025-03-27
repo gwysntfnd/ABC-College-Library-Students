@@ -22,15 +22,11 @@
           const container = document.querySelector(".container");
 
           for (let i = 0; i < students.length; i++) {
-            const name =
-              students[i].getElementsByTagName("Name")[0].textContent;
-            const course =
-              students[i].getElementsByTagName("Course")[0].textContent;
-            const yearLevelSection =
-              students[i].getElementsByTagName("YearLevelSection")[0]
-                .textContent;
-            const adviser =
-              students[i].getElementsByTagName("Adviser")[0].textContent;
+            const name = students[i].getElementsByTagName("Name")[0].textContent;
+            const course = students[i].getElementsByTagName("Course")[0].textContent;
+            const yearLevelSection = students[i].getElementsByTagName("YearLevelSection")[0].textContent;
+            const adviser = students[i].getElementsByTagName("Adviser")[0].textContent;
+            const schoolYear = students[i].getElementsByTagName("SchoolYear")[0].textContent; // Added this line
 
             const studentDiv = document.createElement("div");
             studentDiv.classList.add("student");
@@ -42,9 +38,10 @@
               <p>Course: ${course}</p>
               <p>Year/Section: ${yearLevelSection}</p>
               <p>Adviser: ${adviser}</p>
+              <p>School Year: ${schoolYear}</p> <!-- Added this line -->
             `;
-            const picture =
-              students[i].getElementsByTagName("Picture")[0].textContent;
+
+            const picture = students[i].getElementsByTagName("Picture")[0].textContent;
             const img = document.createElement("img");
             img.src = picture;
             img.alt = `${name}'s picture`;
