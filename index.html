@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ABC Colleges</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>ABC Colleges</h1>
+    <h3>Library Users</h3>
+    <div class="container"></div>
+
+    <script>
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "garces_grace.xml", true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
+          const students = xmlDoc.getElementsByTagName("Student");
+          const container = document.querySelector(".container");
+
+          for (let i = 0; i < students.length; i++) {
+            const name =
+              students[i].getElementsByTagName("Name")[0].textContent;
+            const course =
+              students[i].getElementsByTagName("Course")[0].textContent;
+            const yearLevelSection =
+              students[i].getElementsByTagName("YearLevelSection")[0]
+                .textContent;
+            const adviser =
+              students[i].getElementsByTagName("Adviser")[0].textContent;
+
+            const studentDiv = document.createElement("div");
+            studentDiv.classList.add("student");
+
+            const detailsDiv = document.createElement("div");
+            detailsDiv.classList.add("details");
+            detailsDiv.innerHTML = `
+              <p>Name: ${name}</p>
+              <p>Course: ${course}</p>
+              <p>Year/Section: ${yearLevelSection}</p>
+              <p>Adviser: ${adviser}</p>
+            `;
+            const picture =
+              students[i].getElementsByTagName("Picture")[0].textContent;
+            const img = document.createElement("img");
+            img.src = picture;
+            img.alt = `${name}'s picture`;
+            img.style.width = "100px";
+            img.style.height = "100px";
+
+            studentDiv.appendChild(detailsDiv);
+            studentDiv.appendChild(img);
+            container.appendChild(studentDiv);
+          }
+        }
+      };
+      xhr.send();
+    </script>
+  </body>
+</html>
